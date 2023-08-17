@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<div class="posts">
+    {% for post in object_list %}
+    <div class="post">
+        <div class="left">
+            <h2>
+                <a href="{% url 'detail' post.id %}">{{post.title}}</a>
+            </h2>
+            <p>{{post.body | slice:":100"}}</p>
+        </div>
+        {% if user.id == post.author.id %}
+        <div class="right">
+            <button>
+                <a style="text-decoration: none; color:black;" href="{% url 'delete' post.id %}">Delete</a>
+            </button>
+            <button>
+                <a style="text-decoration: none; color:black;" href="{% url 'edit' post.id %}">Update</a>
+            </button>
+        </div>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+{% endblock content %}

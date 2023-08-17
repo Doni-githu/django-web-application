@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+</head>
+
+<body>
+
+    <header>
+        <nav>
+            <div class="nav-container">
+                <h1 id="toHome">Brand</h1>
+                <ul>
+                    {% if user.is_authenticated %}
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                    <li><a href="{% url 'add' %}">Add Post</a></li>
+                    <li><a href="#">Hi, {{ user.username }}</a></li>
+                    <li><a href="{% url 'logout' %}">Log out</a></li>
+                    {% else %}
+                    <li><a href="{% url 'login' %}">Log in</a></li>
+                    <li><a href="{% url 'signup' %}">Register</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="main-container">
+            {% block content %}
+            {% endblock content %}
+        </div>
+    </main>
+
+
+    <script>
+        const toHome = document.getElementById('toHome')
+        toHome.onclick = function () {
+            location.assign('/')
+        }
+        
+    </script>
+</body>
+
+</html>
